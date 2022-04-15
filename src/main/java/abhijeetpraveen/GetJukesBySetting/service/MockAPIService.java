@@ -24,10 +24,7 @@ public class MockAPIService {
     private static String getResponse(String uri) throws ExecutionException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();
 
-        HttpRequest request = HttpRequest.newBuilder(
-                        URI.create(uri))
-                .header("accept", "application/json")
-                .build();
+        HttpRequest request = HttpRequest.newBuilder(URI.create(uri)).header("accept", "application/json").build();
 
         CompletableFuture<HttpResponse<String>> responseFuture = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
