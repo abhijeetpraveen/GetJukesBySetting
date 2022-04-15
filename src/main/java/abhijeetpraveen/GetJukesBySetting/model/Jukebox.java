@@ -15,7 +15,7 @@ public class Jukebox {
     private final String jukeModel;
     private final List<HashMap<String,String>> jukeComponents;
     private Set<String> componentNames;
-    private static final Set<String> allModels = new HashSet<>();
+    public static final Set<String> allModels = new HashSet<>();
 
     public Jukebox(@JsonProperty("id") String jukeID, @JsonProperty("model") String jukeModel, @JsonProperty("components") List<HashMap<String,String>> jukeComponents) {
         this.jukeID = jukeID;
