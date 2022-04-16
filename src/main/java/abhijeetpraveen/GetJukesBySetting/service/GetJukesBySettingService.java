@@ -64,13 +64,13 @@ public class GetJukesBySettingService {
 
         Pattern idPattern = Pattern.compile("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}");
 
-        if (!idPattern.matcher(settingID).matches()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : An invalid Setting ID was provided.");
+        if (!idPattern.matcher(settingID).matches()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : " + settingID + " is an invalid ID");
 
         ArrayList<String> allSettingsIDs = new ArrayList<>();
 
         for (Setting setting : settingList) allSettingsIDs.add(setting.getSettingID());
 
-        if (!allSettingsIDs.contains(settingID)) throw new IllegalArgumentException("Error " + HttpStatus.NOT_FOUND + " : Given ID has no matching setting");
+        if (!allSettingsIDs.contains(settingID)) throw new IllegalArgumentException("Error " + HttpStatus.NOT_FOUND + " : The ID (" + settingID + ")" + " has no matching setting");
 
         ArrayList<String> allJukeModels = new ArrayList<>();
 
@@ -78,9 +78,9 @@ public class GetJukesBySettingService {
 
         boolean modelInParams = !model.equals("");
 
-        if (!allJukeModels.contains(model) && modelInParams) throw new IllegalArgumentException("Error " + HttpStatus.NOT_FOUND + " : Given model type is invalid");
+        if (!allJukeModels.contains(model) && modelInParams) throw new IllegalArgumentException("Error " + HttpStatus.NOT_FOUND + " : " + model + " is not a valid model");
 
-        ArrayList<String> supportingJukes = new ArrayList<>();
+        List<String> supportingJukes = new ArrayList<>();
 
         Setting specifiedSetting = null;
 
@@ -117,9 +117,10 @@ public class GetJukesBySettingService {
             try {
                 specifiedOffset = Integer.parseInt(offset);
             } catch (Exception error) {
-                throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Offset must be an integer type");
+                throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Offset must be an integer");
             }
-            if (specifiedOffset < 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Please provide a positive Offset");
+            if (specifiedOffset <= 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Please provide a positive Offset");
+            if (supportingJukes.isEmpty()) return "No Jukes support the given parameter(s)";
             if (specifiedOffset > supportingJukes.size()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : There are only " + supportingJukes.size() + " jukes that support this setting. Please specify an offset lower than this number.");
         }
 
@@ -127,30 +128,31 @@ public class GetJukesBySettingService {
             try {
                 specifiedLimit = Integer.parseInt(limit);
             } catch (Exception error) {
-                throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Limit must be an integer type");
+                throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Limit must be an integer");
             }
-            if (specifiedLimit < 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Please provide a positive Limit");
+            if (specifiedLimit <= 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Please provide a positive Limit");
         }
 
         if (offsetInParams && limitInParams) {
-
             int offsetIndex = specifiedOffset - 1;
-
-            return gettingJukesAsString(supportingJukes.subList(offsetIndex,offsetIndex+specifiedLimit));
-
-
-
+            int limitIndex = Math.min(offsetIndex+specifiedLimit, supportingJukes.size());
+            return gettingJukesAsString(supportingJukes.subList(offsetIndex,limitIndex));
         }
 
         if (offsetInParams) return gettingJukesAsString(supportingJukes.subList(specifiedOffset - 1, supportingJukes.size()));
 
-        if (limitInParams) return gettingJukesAsString(supportingJukes.subList(0,specifiedLimit));
+        if (limitInParams) {
+
+            int limitIndex = Math.min(specifiedLimit, supportingJukes.size());
+            return gettingJukesAsString(supportingJukes.subList(0,limitIndex));
+        }
 
         return gettingJukesAsString(supportingJukes);
 
     }
 
     private String gettingJukesAsString(List<String> supportedJukes) {
+        if (supportedJukes.isEmpty()) return "No Jukes support the given parameter(s)";
         StringBuilder output = new StringBuilder();
         int count = 1;
         for (String jukeID : supportedJukes) {
