@@ -1,7 +1,7 @@
 package abhijeetpraveen.GetJukesBySetting.controller;
 
 
-import abhijeetpraveen.GetJukesBySetting.service.MockAPIService;
+import abhijeetpraveen.GetJukesBySetting.service.GetJukesBySettingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetJukesBySettingRestController {
 
     @Autowired
-    MockAPIService service;
+    GetJukesBySettingService service;
 
 
     @GetMapping(value = "/supportedJukes")

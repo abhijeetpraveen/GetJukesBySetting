@@ -15,11 +15,10 @@ import java.net.http.HttpResponse;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Service
-public class MockAPIService {
+public class GetJukesBySettingService {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -64,9 +63,8 @@ public class MockAPIService {
         if (settingID == null || settingID.trim().length() == 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : No Setting ID was given. Please enter a valid id");
 
         Pattern idPattern = Pattern.compile("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}");
-        Matcher patternMatcher = idPattern.matcher(settingID);
 
-        if (!patternMatcher.matches()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : An invalid Setting ID was provided.");
+        if (!idPattern.matcher(settingID).matches()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : An invalid Setting ID was provided.");
 
         ArrayList<String> allSettingsIDs = new ArrayList<>();
 
@@ -138,15 +136,28 @@ public class MockAPIService {
 
             int offsetIndex = specifiedOffset - 1;
 
-            return supportingJukes.subList(offsetIndex,offsetIndex+specifiedLimit).toString();
+            return gettingJukesAsString(supportingJukes.subList(offsetIndex,offsetIndex+specifiedLimit));
+
+
 
         }
 
-        if (offsetInParams) return supportingJukes.subList(specifiedOffset - 1, supportingJukes.size()).toString();
+        if (offsetInParams) return gettingJukesAsString(supportingJukes.subList(specifiedOffset - 1, supportingJukes.size()));
 
-        if (limitInParams) return supportingJukes.subList(0,specifiedLimit).toString();
+        if (limitInParams) return gettingJukesAsString(supportingJukes.subList(0,specifiedLimit));
 
-        return supportingJukes.toString();
+        return gettingJukesAsString(supportingJukes);
 
+    }
+
+    private String gettingJukesAsString(List<String> supportedJukes) {
+        StringBuilder output = new StringBuilder();
+        int count = 1;
+        for (String jukeID : supportedJukes) {
+            output.append(count).append(".").append(" ").append(jukeID).append("<br>").append("<br>");
+            count++;
+        }
+
+        return output.toString();
     }
 }
