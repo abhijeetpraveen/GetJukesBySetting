@@ -14,7 +14,7 @@ public class Setting {
      * @param settingID - represents the ID of the setting
      * @param settingRequirements - represents a set of string that corresponds to the requirements of the setting
      */
-    public Setting(@JsonProperty("id") String settingID, @JsonProperty("requirements") Set<String> settingRequirements) {
+    public Setting(@JsonProperty("id") String settingID, @JsonProperty("requires") Set<String> settingRequirements) {
         this.settingID = settingID;
         this.settingRequirements = settingRequirements;
     }
@@ -35,11 +35,5 @@ public class Setting {
         return this.settingRequirements;
     }
 
-    /**
-     * this method sets the requirements of the setting to the settingRequirements set that has been passed as a parameter
-     * @param settingRequirements - a set consisting of the setting requirements
-     */
-    public void setSettingRequirements(Set<String> settingRequirements) {
-        this.settingRequirements = settingRequirements;
-    }
+
 }

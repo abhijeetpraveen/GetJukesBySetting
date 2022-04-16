@@ -15,7 +15,6 @@ public class Jukebox {
     private final String jukeModel;
     private final List<HashMap<String,String>> jukeComponents;
     private Set<String> componentNames;
-    public static final Set<String> allModels = new HashSet<>();
 
 
     /**
@@ -54,19 +53,4 @@ public class Jukebox {
         return this.jukeComponents;
     }
 
-    /**
-     * a simple getter for the actual names of the components supported by a jukebox
-     * @return - a set (no duplicates) that consists of the names of the components supported by that jukebox
-     */
-    public Set<String> getComponentNames() {
-        return this.componentNames;
-    }
-
-    /**
-     * this method sets the component names of the jukebox to the componentNames set that has been passed as a parameter
-     * @param componentNames - a set consisting of the component names
-     */
-    public void setComponentNames(Set<String> componentNames) {
-        this.componentNames = componentNames;
-    }
 }

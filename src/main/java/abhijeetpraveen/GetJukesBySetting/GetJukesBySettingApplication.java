@@ -15,7 +15,10 @@ public class GetJukesBySettingApplication {
 
 	@RequestMapping("/")
 	public String greeting(){
-		return "Welcome to the GetJukesBySetting Application";
+		String greeting = "Welcome to the GetJukesBySetting Application by Abhijeet Praveen.";
+		String message = " Please enter a query for setting id as (/supportedJukes?id=) to check for Jukes supporting that setting.";
+		String optionalParams = " Other query parameters such as (model, offset and limit) can also be included but are optional.";
+		return greeting + "<br>" +"<br>" + message + "<br>" + "<br>" + optionalParams;
 	}
 
 }
