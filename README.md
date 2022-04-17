@@ -1,4 +1,4 @@
-# Welcome to GetJukesBySetting Application
+# Welcome to the GetJukesBySetting Application
 
 This is a REST API with a single GET endpoint which returns a paginated list of jukeboxes that suppport a given setting id. It supports the following query parameters:
 
