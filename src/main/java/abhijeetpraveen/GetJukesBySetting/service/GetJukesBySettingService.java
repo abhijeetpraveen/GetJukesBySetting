@@ -145,7 +145,7 @@ public class GetJukesBySettingService {
         for (Jukebox jukebox : jukeboxList) allJukeModels.add(jukebox.getJukeModel());
 
         // we will check if the user wishes to filter the output by model type
-        boolean modelInParams = !model.equals("");
+        boolean modelInParams = !(model.trim().length() == 0);
 
         // if the user has specified a model but if the arraylist holding all the models does not contain the input model, we throw an appropriate error message
         if (!allJukeModels.contains(model) && modelInParams) throw new IllegalArgumentException("Error " + HttpStatus.NOT_FOUND + " : " + model + " is not a valid model");
@@ -186,8 +186,8 @@ public class GetJukesBySettingService {
         }
 
         // we check to see if the user has specified an offset and/or a limit in the input params
-        boolean offsetInParams = !offset.equals("");
-        boolean limitInParams = !limit.equals("");
+        boolean offsetInParams = !(offset.trim().length() == 0);
+        boolean limitInParams = !(limit.trim().length() == 0);
 
         // initializing the integers that will hold the offset and the limit
         int specifiedOffset = 0;
