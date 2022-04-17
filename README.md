@@ -1,12 +1,12 @@
 # Welcome to GetJukesBySetting Application
 
 This is a REST API with a single GET endpoint which returns a paginated list of jukeboxes that suppport a given setting id. It supports the following query parameters:
-
+<ul>
  - `settingId` - This is a **required** parameter which represents the ID of the setting for which you wish to find all supporting Jukes
  - `model` - This is an **optional** parameter that allows you to filter the Jukes based on their model
  - `offset` - This is an **optional** parameter that allows you to set the index where the page will start
  - `limit` - This is an **optional** parameter that allows you to set the size of the page
-
+</ul>
 ### How to run this project 
 
 #### Option 1:
@@ -35,9 +35,8 @@ localhost:8080/supportedJukes?id={id of your choice}&model={model}&offset={offse
 200 - Your request was a success
 404 - When your input Setting or your input Model cannot be found
 406 - When any of your inputs is invalid
-
-These messages are shown in more detail when you use the application but are here for your reference
 </pre>
+These messages are shown in more detail when you use the application but are here for your reference
 
 ### The Application has also been tested with multiple unit tests
 These tests can be found in the java file [GetJukesBySettingApplicationTests.java](https://github.com/abhijeetpraveen/GetJukesBySetting/blob/main/src/test/java/abhijeetpraveen/GetJukesBySetting/GetJukesBySettingApplicationTests.java)
