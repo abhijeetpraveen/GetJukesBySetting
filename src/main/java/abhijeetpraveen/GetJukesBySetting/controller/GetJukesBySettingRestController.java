@@ -23,7 +23,7 @@ public class GetJukesBySettingRestController {
      * @param model an optional parameter where the user can filter jukes by their model
      * @param offset an optional parameter where the user can indicate at what index the page should start
      * @param limit an optional parameter where the user can indicate the page size
-     * @return a String response entity corresponding to the paginated list or any error thrown by the error
+     * @return a String response entity corresponding to the paginated list or any error thrown by the service
      */
     @GetMapping(value = "/supportedJukes")
     public ResponseEntity<String> getJukesBySetting(@RequestParam(value = "id", defaultValue = "") String id,
