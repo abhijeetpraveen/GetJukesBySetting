@@ -26,7 +26,7 @@ The Docker Hub Repository can be found [here](https://hub.docker.com/repository/
 You can now use the application by entering the following URL in your browser.
 
 ```bash
-localhost:8080/supportedJukes?id={id of your choice}&model={model}&offset={offset}&limit={limit}
+localhost:8080/supportedJukes?id={settingID}&model={model}&offset={offset}&limit={limit}
 ```
 
 #### The following are error codes or messages that the application may throw
