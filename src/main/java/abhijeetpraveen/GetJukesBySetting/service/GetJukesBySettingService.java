@@ -304,7 +304,7 @@ public class GetJukesBySettingService {
 
     /**
      * This is a simple getter for the component names of a juke
-     * @param juke the juke whose components name we wish to get
+     * @param juke whose components name we wish to get
      * @return a set of strings corresponding to the names of the juke's components
      */
     private Set<String> getJukeComponentNames(Jukebox juke) {
