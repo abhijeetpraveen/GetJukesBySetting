@@ -1,6 +1,6 @@
 # Welcome to the GetJukesBySetting Application
 
-This is a REST API with a single GET endpoint which returns a paginated list of jukeboxes that suppport a given setting id. It supports the following query parameters:
+This is a REST API with a single GET endpoint which returns a paginated list of jukeboxes that support a given setting id. It supports the following query parameters:
 
  - `settingId` - This is a **required** parameter which represents the ID of the setting for which you wish to find all supporting Jukes
  - `model` - This is an **optional** parameter that allows you to filter the Jukes based on their model
