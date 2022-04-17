@@ -1,12 +1,11 @@
 # Welcome to GetJukesBySetting Application
 
 This is a REST API with a single GET endpoint which returns a paginated list of jukeboxes that suppport a given setting id. It supports the following query parameters:
-<ul>
+
  - `settingId` - This is a **required** parameter which represents the ID of the setting for which you wish to find all supporting Jukes
  - `model` - This is an **optional** parameter that allows you to filter the Jukes based on their model
  - `offset` - This is an **optional** parameter that allows you to set the index where the page will start
  - `limit` - This is an **optional** parameter that allows you to set the size of the page
-</ul>
 ### How to run this project 
 
 #### Option 1:
