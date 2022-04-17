@@ -33,7 +33,7 @@ localhost:8080/supportedJukes?id={settingID}&model={model}&offset={offset}&limit
 <pre>
 200 - Your request was a success
 404 - When your input Setting or your input Model cannot be found
-406 - When any of your inputs is invalid
+406 - When any of your inputs is/are invalid
 </pre>
 These messages are shown in more detail when you use the application but are here for your reference
 
