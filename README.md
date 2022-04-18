@@ -16,7 +16,7 @@ locally as a  `Spring Boot Application`.
 The Application has been Dockerized. Therefore, running the following command in terminal will also allow you to use the Application without needing to clone this repositsory. 
 
 ```bash
-docker run -d -p port {local port of your choice}:{8080} abhijeetpraveen/get_jukes_by_app:2.0.0
+docker run -d -p port {local port of your choice}:{8080} abhijeetpraveen/get_jukes_app:2.0.0
 ```
 
 The Docker Hub Repository can be found [here](https://hub.docker.com/repository/docker/abhijeetpraveen/get_jukes_by_setting_rest_application).
