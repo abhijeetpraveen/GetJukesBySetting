@@ -38,8 +38,3 @@ These messages are shown in more detail when you use the application but are her
 
 ### The Application has also been tested with multiple unit tests
 These tests can be found in the java file [GetJukesBySettingApplicationTests.java](https://github.com/abhijeetpraveen/GetJukesBySetting/blob/main/src/test/java/abhijeetpraveen/GetJukesBySetting/GetJukesBySettingApplicationTests.java)
-
-All the tests in this file can be run by running the following command in terminal
-```bash
-./gradlew cleanTest
-```
