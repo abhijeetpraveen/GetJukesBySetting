@@ -114,7 +114,7 @@ public class GetJukesBySettingService {
      * @throws JsonProcessingException if there was a problem when working with JSON
      * @throws InterruptedException if the thread encounters an interruption
      */
-    public String getJukesBySetting(String settingID, String model, String offset, String limit) throws ExecutionException, IllegalArgumentException, JsonProcessingException, InterruptedException {
+    public List<Jukebox> getJukesBySetting(String settingID, String model, String offset, String limit) throws ExecutionException, IllegalArgumentException, JsonProcessingException, InterruptedException {
 
         // using the methods we wrote above to get all the jukes and settings returned by the API
         List<Jukebox> jukeboxList = getJukes();
@@ -209,9 +209,6 @@ public class GetJukesBySettingService {
             // if the converted integer is negative or 0, we throw the appropriate the error message
             if (specifiedOffset <= 0) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : Please provide a positive Offset");
 
-            // if an offset has been specified but the list containing the supporting jukes is empty, we return an appropriate message
-            if (supportingJukes.isEmpty()) return "No Jukes support the given parameter(s)";
-
             // if the specified offset is larger than the actual number of supporting jukes, we throw an appropriate error message
             if (specifiedOffset > supportingJukes.size()) throw new IllegalArgumentException("Error " + HttpStatus.NOT_ACCEPTABLE + " : There are only " + supportingJukes.size() + " jukes that support the given parameter(s). Please specify an offset lower than this number.");
         }
@@ -244,62 +241,24 @@ public class GetJukesBySettingService {
             // a bigger limit should not throw an error as the number of jukes shown will be inside the limit anyway
             int limitIndex = Math.min(offsetIndex+specifiedLimit, supportingJukes.size());
 
-            // returning the sublist of jukes as a string (method described later)
-            return gettingJukesAsString(supportingJukes.subList(offsetIndex,limitIndex));
+            // returning the sublist of jukes
+            return supportingJukes.subList(offsetIndex,limitIndex);
         }
 
         // if only the offset is specified, we return the corresponding sublist with the limit set to the end of the list
-        if (offsetInParams) return gettingJukesAsString(supportingJukes.subList(specifiedOffset - 1, supportingJukes.size()));
+        if (offsetInParams) return supportingJukes.subList(specifiedOffset - 1, supportingJukes.size());
 
         // if only the limit is specified, we set the limit of the sublist to be the minimum between the specified limit
         // and the actual list size, then the actual sublist from the first index to that limit is returned
         if (limitInParams) {
 
             int limitIndex = Math.min(specifiedLimit, supportingJukes.size());
-            return gettingJukesAsString(supportingJukes.subList(0,limitIndex));
+            return supportingJukes.subList(0,limitIndex);
         }
 
-        // returning the string corresponding to the list of jukes that support the input params
-        return gettingJukesAsString(supportingJukes);
+        // returning the list of jukes that support the input params
+        return supportingJukes;
 
-    }
-
-    /**
-     * This method converts the list of supported jukes into a string that is easy to read for a user
-     * @param supportedJukes list corresponding to the jukes that we wish to return as a pretty string
-     * @return a string corresponding to a paginated list of supported jukes
-     */
-    private String gettingJukesAsString(List<Jukebox> supportedJukes) {
-
-        // if the input list is empty, we return an appropriate message
-        if (supportedJukes.isEmpty()) return "No Jukes support the given parameter(s)";
-
-        // initializing the string builder that will be returned as a string
-        StringBuilder output = new StringBuilder();
-
-        // since there were no errors thrown and the list was created with a success, we show the appropriate message
-        // at the top of the screen
-        output.append("Status: ").append(HttpStatus.OK).append(" (Success)").append("<br>").append("<br>");
-
-        // set the initial count to 1 to be shown in the paginated list
-        int count = 1;
-
-        // iterate through input list and build our string
-        // we include the count, the ID, model, and the component names of the juke
-        for (Jukebox juke : supportedJukes) {
-            output.append(count).append(". ").append("ID: ").append(juke.getJukeID());
-            output.append("<br>").append("Model: ").append(juke.getJukeModel());
-            output.append("<br>").append("Components: ").append(getJukeComponentNames(juke));
-
-            // adding "<br>" tags to create a new line
-            output.append("<br>").append("<br>");
-
-            // increment the count for the next juke
-            count++;
-        }
-
-        // returning the string that we will show
-        return output.toString();
     }
 
     /**
