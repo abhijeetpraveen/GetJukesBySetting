@@ -19,7 +19,7 @@ The Application has been Dockerized. Therefore, running the following command in
 docker run -d -p {a local free port of your choice}:8080 abhijeetpraveen/get_jukes_app:2.0.0
 ```
 
-The Docker Hub Repository can be found [here](https://hub.docker.com/repository/docker/abhijeetpraveen/get_jukes_by_setting_rest_application).
+The Docker Hub Repository can be found [here](https://hub.docker.com/repository/docker/abhijeetpraveen/get_jukes_app).
 
 ### Using the Application
 
